@@ -8,14 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.guilhermecastello.songbook.Exception.RNException;
+import br.com.guilhermecastello.songbook.exception.RNException;
 import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.SongbookApplication;
-import br.com.guilhermecastello.songbook.type.PhraseType;
 import br.com.guilhermecastello.songbook.type.PlaylistSongType;
 import br.com.guilhermecastello.songbook.type.PlaylistType;
 import br.com.guilhermecastello.songbook.type.SongType;
-import br.com.guilhermecastello.songbook.type.VerseType;
 import br.com.guilhermecastello.songbook.util.Util;
 
 /**

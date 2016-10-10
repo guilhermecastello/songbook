@@ -1,4 +1,4 @@
-package br.com.guilhermecastello.songbook.Exception;
+package br.com.guilhermecastello.songbook.exception;
 
 
 

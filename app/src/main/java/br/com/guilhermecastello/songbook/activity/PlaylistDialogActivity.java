@@ -1,6 +1,5 @@
 package br.com.guilhermecastello.songbook.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,9 +7,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import br.com.guilhermecastello.songbook.Exception.RNException;
+import br.com.guilhermecastello.songbook.exception.RNException;
 import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.adapter.PlaylistAdapter;
 import br.com.guilhermecastello.songbook.rnbd.PlaylistRN;
