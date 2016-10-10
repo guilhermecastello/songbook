@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">SongBook</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Configurações</string>
+
+
+    <string name="chorus_descr">Coro</string>
+
+    <!--******************* Activities -*************************-->
+
+    <!-- Dialogs -->
+    <string name="alert_box_title">Atenção</string>
+    <string name="listview_menu_title">Opções</string>
+
+    <!--SongListActivity -->
+    <string name="txt_search_song_hint">Buscar música</string>
+    <string name="txt_empty_song">Nenhuma música encontrada</string>
+    <string name="menu_song_add_playlist">Adicionar a playlist</string>
+    <string name="menu_song_remove_playlist">Remover da playlist</string>
+
+    <!--PlaylistListActivity -->
+    <string name="txt_search_playlist_hint">Buscar playlist</string>
+    <string name="txt_empty_playlist">Nenhuma playlist encontrada</string>
+    <string name="menu_playlist_new">Nova Playlist</string>
+    <string name="menu_playlist_remove">Remover playlist</string>
+
+
+    <!--PlaylistNewActivity -->
+    <string name="title_playlist_new">Create New Playlist</string>
+    <string name="txt_name_playlist_hint">Playlist name</string>
+    <string name="btn_create_playlist">Create</string>
+    <string name="btn_cancel_playlist">Cancel</string>
+
+
+    <!--**************** Enumeradores **********************-->
+    <!-- IndSingEnum -->
+    <string name="ind_sing_enum_man">H</string>
+    <string name="ind_sing_enum_woman">M</string>
+    <string name="ind_sing_enum_all">Todos</string>
+
+    <!-- IndYesNoEnum -->
+    <string name="ind_yesno_enum_yes">Sim</string>
+    <string name="ind_yesno_enum_no">Não</string>
+
+    <!-- LanguageEnum -->
+    <string name="language_enum_portuguese">Português</string>
+    <string name="language_enum_english">Inglês</string>
+    <string name="language_enum_spanish">Espanhol</string>
+
+
+    <!-- ****************** Exceptions ************************-->
+    <!-- Playlist -->
+    <string name="playlist_duplicated_song">Esta música já está na sua playlist.</string>
+
+</resources>
+

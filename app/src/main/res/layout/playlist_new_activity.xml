@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/playlist_new_activity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.guilhermecastello.songbook.activity.PlaylistNewActivity">
+
+
+    <EditText
+        android:id="@+id/txtPlaylistName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/txt_name_playlist_hint"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/txtPlaylistName"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:text="@string/btn_cancel_playlist"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:layout_width="0dip"
+            android:id="@+id/btnCancelPlylist"/>
+
+        <Button
+            android:text="@string/btn_create_playlist"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:layout_width="0dip"
+            android:enabled="false"
+            android:id="@+id/btnCreatePlaylist"/>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
