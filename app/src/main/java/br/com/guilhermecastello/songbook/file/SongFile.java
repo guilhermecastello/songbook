@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -38,12 +39,11 @@ public class SongFile {
     public List<SongType> readAllSongsToImport(boolean readFromAssets) {
         ArrayList<SongType> songs = new ArrayList<SongType>();
         SongType songType = null;
-        String files[] = null;
+        String[] files = null;
         try {
             if (readFromAssets) {
                 files = this.listFilesFromAssets();
-            }
-            else {
+            } else {
                 files = this.listFilesFromHomeFolder();
             }
 
@@ -63,15 +63,19 @@ public class SongFile {
     }
 
     private String[] listFilesFromHomeFolder() throws IOException {
+        String[] listOfFiles = null;
 
         File homeFolder = Util.findPathFiles(this.context, "Songbook");
 
         if (homeFolder != null) {
-            Toast.makeText(context, String.valueOf(homeFolder.canRead()), Toast.LENGTH_SHORT).show();
+            File[] files = homeFolder.listFiles();
+            listOfFiles = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                listOfFiles[i] = files[i].getAbsolutePath();
+            }
         }
 
-
-        return this.context.getAssets().list("");
+        return listOfFiles;
     }
 
     private BufferedReader getReaderFromAsset(String nameArq) throws IOException {
@@ -79,7 +83,7 @@ public class SongFile {
     }
 
     private BufferedReader getReaderFromHomeFolder(String nameArq) throws IOException {
-        return new BufferedReader(new InputStreamReader(this.context.getAssets().open(nameArq)));
+        return new BufferedReader(new InputStreamReader(new FileInputStream(nameArq)));
     }
 
     private SongType readSongFromFile(String nameArq, boolean fromAsset) throws IOException {
@@ -94,7 +98,7 @@ public class SongFile {
 
             if (fromAsset) {
                 reader = getReaderFromAsset(nameArq);
-            }else {
+            } else {
                 reader = getReaderFromHomeFolder(nameArq);
             }
 

@@ -44,7 +44,7 @@ public class SongImportActivity extends BaseActivity {
         try{
             mSongFile = new SongFile(getBaseContext());
 
-            List<SongType> songs = mSongFile.readAllSongsToImport(false);
+            List<SongType> songs = mSongFile.readAllSongsToImport(true);
 
             for (SongType songType : songs) {
                 Toast.makeText(this, songType.getName(), Toast.LENGTH_SHORT).show();
