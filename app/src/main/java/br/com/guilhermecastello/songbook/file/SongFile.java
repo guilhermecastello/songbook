@@ -1,6 +1,7 @@
 package br.com.guilhermecastello.songbook.file;
 
 import android.content.Context;
+import android.hardware.camera2.TotalCaptureResult;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ import br.com.guilhermecastello.songbook.exception.RNException;
 import br.com.guilhermecastello.songbook.type.PhraseType;
 import br.com.guilhermecastello.songbook.type.SongType;
 import br.com.guilhermecastello.songbook.type.VerseType;
+import br.com.guilhermecastello.songbook.util.Util;
 
 
 /**
@@ -42,7 +44,7 @@ public class SongFile {
                 files = this.listFilesFromAssets();
             }
             else {
-                files = this.listFilesHomeFolder();
+                files = this.listFilesFromHomeFolder();
             }
 
             for (String file : files) {
@@ -60,7 +62,15 @@ public class SongFile {
         return this.context.getAssets().list("");
     }
 
-    private String[] listFilesHomeFolder() throws IOException {
+    private String[] listFilesFromHomeFolder() throws IOException {
+
+        File homeFolder = Util.findPathFiles(this.context, "Songbook");
+
+        if (homeFolder != null) {
+            Toast.makeText(context, String.valueOf(homeFolder.canRead()), Toast.LENGTH_SHORT).show();
+        }
+
+
         return this.context.getAssets().list("");
     }
 

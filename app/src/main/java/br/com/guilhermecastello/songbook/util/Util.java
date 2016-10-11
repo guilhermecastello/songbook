@@ -1,108 +1,39 @@
 package br.com.guilhermecastello.songbook.util;
 
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.SongbookApplication;
 
 public class Util {
 
-    //public static String ABORDAGEM_KEY = "keytoopenabmfile";
-
-    public static Object invocaMetodo(Object rn, String nomeMetodo, Object parametro) {
-        Object retorno = null;
-        Class classes[];
-        Object param[];
-
-        try {
-            if (parametro != null) {
-                classes = new Class[1];
-                classes[0] = parametro.getClass();
-
-                param = new Object[1];
-                param[0] = parametro;
-            } else {
-                classes = new Class[0];
-                param = new Object[0];
-            }
-
-            // Pega metodo
-            Method metodo = rn.getClass().getMethod(nomeMetodo, classes);
-
-            // Executa metodo
-            retorno = metodo.invoke(rn, param);
-
-        } catch (InvocationTargetException ex) {
-            Throwable th = ex.getTargetException();
-            if (th instanceof RuntimeException) {
-                throw (RuntimeException) th;
-            } else {
-                throw new RuntimeException(th);
-            }
-        } catch (Exception exc) {
-            throw new RuntimeException(exc);
-        }
-        return retorno;
-    }
-
-    public static String samdToDate(int samd) {
-
-        String retorno = "";
-        SimpleDateFormat df = null;
-        try {
-            if (samd > 0) {
-                df = new SimpleDateFormat("yyyyMMdd");
-                df.setLenient(false);
-                java.util.Date date = df.parse(String.valueOf(samd));
-
-                df = new SimpleDateFormat("dd/MM/yyyy");
-                retorno = df.format(date);
-            }
-        } catch (Exception exc) {
-            throw new RuntimeException(exc.toString(), exc);
-        }
-        return retorno;
-    }
-
-    public static Calendar samdToCalendar(int samd) {
-
-        Calendar calendar = null;
-        try {
-            if (samd > 0) {
-                SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-                df.setLenient(false);
-
-                calendar = Calendar.getInstance();
-                calendar.setTime(df.parse(String.valueOf(samd)));
-            }
-        } catch (Exception exc) {
-            throw new RuntimeException(exc.toString(), exc);
-        }
-        return calendar;
-    }
-
-    public static int calendarToSamd(Calendar data) {
-        String year = data.get(Calendar.YEAR) + "";
-        int monthI = data.get(Calendar.MONTH) + 1;
-        String month = (monthI < 10) ? "0" + monthI : monthI + "";
-        int dayI = data.get(Calendar.DAY_OF_MONTH);
-        String day = (dayI < 10) ? "0" + dayI : dayI + "";
-        return Integer.parseInt(year + month + day);
-    }
 
     public static String getStringValue(Cursor rs, String columnName) {
         return rs.getString(rs.getColumnIndex(columnName));
@@ -282,7 +213,7 @@ public class Util {
     //  }
 
 
-    public static File findPathFiles(Context context, String appName) throws Exception {
+    public static File findPathFiles(Context context, String appName) {
         File pathFiles = null;
 
         SongbookApplication prApp = (SongbookApplication) context.getApplicationContext();
@@ -328,56 +259,69 @@ public class Util {
     //    return observacoes.toString();
     //  }
     //
-    //  public static String[] obterPermissoesApp(Context context) {
-    //    List<String> permissoesNecessarias = new ArrayList<String>();
-    //
-    //    try {
-    //
-    //      // Nao verifica permissoes para versoes inferiores a 6.0
-    //      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-    //        return new String[]{};
-    //      }
-    //
-    //      PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
-    //
-    //      if (info.requestedPermissions != null) {
-    //        for (String permissao: info.requestedPermissions) {
-    //          if (ContextCompat.checkSelfPermission(context, permissao) != PackageManager.PERMISSION_GRANTED) {
-    //
-    //            if (Manifest.permission.WRITE_SETTINGS.equals(permissao)) {
-    //              boolean possuiPermissaoWriteSettings = checkSystemWritePermission(context);
-    //              if (!possuiPermissaoWriteSettings) {
-    //                return null;
-    //              }
-    //              continue;
-    //            }
-    //
-    //            permissoesNecessarias.add(permissao);
-    //          }
-    //        }
-    //      }
-    //    } catch (Exception exc) {
-    //      throw new RuntimeException(exc);
-    //    }
-    //
-    //
-    //    String[] permissoes = permissoesNecessarias.toArray(new String[0]);
-    //
-    //    return permissoes;
-    //  }
-    //
-    //  @TargetApi(23)
-    //  private static boolean checkSystemWritePermission(Context context) {
-    //    boolean retVal = true;
-    //    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-    //        retVal = Settings.System.canWrite(context);
-    //        if(!retVal){
-    //            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-    //            intent.setData(Uri.parse("package:" + context.getPackageName()));
-    //            context.startActivity(intent);
-    //        }
-    //    }
-    //    return retVal;
-    //  }
+    public static String[] getAppPremissions(Context context) {
+        List<String> requestedPermissions = new ArrayList<String>();
+
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return new String[]{};
+            }
+
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
+
+            if (info.requestedPermissions != null) {
+                for (String permission : info.requestedPermissions) {
+                    if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+
+                        if (Manifest.permission.WRITE_SETTINGS.equals(permission)) {
+                            if (!checkSystemWritePermission(context)) {
+                                return null;
+                            }
+                            continue;
+                        }
+
+                        requestedPermissions.add(permission);
+                    }
+                }
+            }
+        } catch (Exception exc) {
+            throw new RuntimeException(exc);
+        }
+
+
+        String[] permissions = requestedPermissions.toArray(new String[0]);
+
+        return permissions;
+    }
+
+    @TargetApi(23)
+    private static boolean checkSystemWritePermission(Context context) {
+        boolean retVal = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            retVal = Settings.System.canWrite(context);
+            if (!retVal) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + context.getPackageName()));
+                context.startActivity(intent);
+            }
+        }
+        return retVal;
+    }
+
+    public static void requestPermission(Activity activity, String[] permissions, int permissaoRequest) {
+
+        List<String> requestedPermissions = new ArrayList<String>();
+
+        for (String permission : permissions) {
+            // Verificar a permissao
+            if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+                requestedPermissions.add(permission);
+            }
+        }
+
+        if (!requestedPermissions.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, requestedPermissions.toArray(new String[0]), permissaoRequest);
+        }
+    }
 
 }

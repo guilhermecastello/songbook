@@ -1,21 +1,14 @@
 package br.com.guilhermecastello.songbook.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
@@ -24,29 +17,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import br.com.guilhermecastello.songbook.R;
-import br.com.guilhermecastello.songbook.SongbookApplication;
 import br.com.guilhermecastello.songbook.adapter.SongAdapter;
-import br.com.guilhermecastello.songbook.enumeration.IndSingEnum;
-import br.com.guilhermecastello.songbook.enumeration.IndYesNoEnum;
-import br.com.guilhermecastello.songbook.enumeration.LanguageEnum;
 import br.com.guilhermecastello.songbook.rnbd.PlaylistRN;
 import br.com.guilhermecastello.songbook.rnbd.SongRN;
-import br.com.guilhermecastello.songbook.type.PhraseType;
 import br.com.guilhermecastello.songbook.type.PlaylistType;
 import br.com.guilhermecastello.songbook.type.SongType;
-import br.com.guilhermecastello.songbook.type.VerseType;
 import br.com.guilhermecastello.songbook.util.Util;
 
 public class SongListActivity extends BaseActivity {
+
+    protected final int    PERMISSIONS_REQUEST = 1;
 
     private final int ADD_SONG_TO_PLAYLIST_RC = 1;
 
@@ -97,19 +80,22 @@ public class SongListActivity extends BaseActivity {
         mEmptyView = (TextView) findViewById(android.R.id.empty);
         mTxtSearch = (EditText) findViewById(R.id.txtSearch);
 
+
+        mTxtSearch.addTextChangedListener(new TextWatcherImpl());
         mLstView.setOnItemClickListener(new ListViewListenerImpl());
         registerForContextMenu(mLstView);
-        mTxtSearch.addTextChangedListener(new TextWatcherImpl());
 
 
         mSongRN = new SongRN(getBaseContext());
         mPlaylistRN = new PlaylistRN(getBaseContext());
 
         refresh();
+
+        verifyPermissions();
     }
 
     private void refresh() {
-        List<SongType> lista = null;
+        List<SongType> lista;
 
         if (mPlaylist != null) {
             lista = mSongRN.listPlaylist(mPlaylist);
@@ -126,6 +112,20 @@ public class SongListActivity extends BaseActivity {
         } else {
             mLstView.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
+        }
+    }
+
+    private void verifyPermissions() {
+        String[] permissions = Util.getAppPremissions(this);
+
+        if (permissions != null) {
+            for (String permission : permissions) {
+                // Verificar se existe alguma permissao faltando para funcionamento do app
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    Util.requestPermission(this, permissions, PERMISSIONS_REQUEST);
+                    return;
+                }
+            }
         }
     }
 
