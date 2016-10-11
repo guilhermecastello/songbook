@@ -9,6 +9,10 @@
     <string name="chorus_descr">Chorus</string>
 
     <!--******************* Activities -*************************-->
+    <!-- BaseActivity -->
+    <string name="menu_drawer_songs">Songs</string>
+    <string name="menu_drawer_playlist">Playlists</string>
+    <string name="menu_drawer_import">Import songs</string>
 
     <!-- Dialogs -->
     <string name="alert_box_title">Warning</string>

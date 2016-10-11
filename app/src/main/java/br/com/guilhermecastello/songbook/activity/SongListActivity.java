@@ -93,7 +93,6 @@ public class SongListActivity extends BaseActivity {
 
         setContentView(R.layout.song_list_activity);
 
-
         mLstView = (ListView) findViewById(android.R.id.list);
         mEmptyView = (TextView) findViewById(android.R.id.empty);
         mTxtSearch = (EditText) findViewById(R.id.txtSearch);
@@ -105,8 +104,6 @@ public class SongListActivity extends BaseActivity {
 
         mSongRN = new SongRN(getBaseContext());
         mPlaylistRN = new PlaylistRN(getBaseContext());
-
-       //importSongs();
 
         refresh();
     }
@@ -129,142 +126,6 @@ public class SongListActivity extends BaseActivity {
         } else {
             mLstView.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
-        }
-    }
-
-
-    private void importSongs() {
-
-        try {
-            for (String song : getAssets().list("")) {
-                readFile(song);
-            }
-        } catch (IOException e) {
-
-        }
-    }
-
-
-    private void readFile(String nameArq) {
-        SongType songType = new SongType();
-        VerseType verseType = null;
-
-        ArrayList<VerseType> verses = new ArrayList<VerseType>();
-        ArrayList<PhraseType> phrases = new ArrayList<PhraseType>();
-
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(getAssets().open(nameArq)));
-
-            // do reading, usually loop until end of file reading
-            String mLine;
-            boolean firstRow = true;
-            boolean repeatVerse = false;
-            while ((mLine = reader.readLine()) != null) {
-                //Toast.makeText(getBaseContext(), mLine, Toast.LENGTH_SHORT).show();
-                if (firstRow) {
-                    firstRow = false;
-                    String[] fields = mLine.split("-");
-                    if (fields.length == 2) {
-                        songType.setNumber(Integer.valueOf(fields[0].trim()));
-                        songType.setName(fields[1].trim());
-                        LanguageEnum languageEnum = LanguageEnum.getByLanguage(Locale.getDefault().getLanguage());
-                        if (languageEnum == null) {
-                            languageEnum = LanguageEnum.PORTUGUESE;
-                        }
-                        songType.setLanguage(languageEnum.getCodigo());
-                        //songType.setLanguage(LanguageEnum.PORTUGUESE.getCodigo());
-                    } else if (fields.length == 3) {
-                        songType.setNumber(Integer.valueOf(fields[0].trim()));
-                        songType.setName(fields[1].trim());
-                        LanguageEnum languageEnum = LanguageEnum.getByLanguage(fields[2].trim());
-                        if (languageEnum == null) {
-                            languageEnum = LanguageEnum.PORTUGUESE;
-                        }
-                        songType.setLanguage(languageEnum.getCodigo());
-
-                    } else {
-                        throw new RuntimeException("Arquivo fora do padrão");
-                    }
-
-                } else {
-                    if (mLine.trim().equals("")) {
-                        if (verseType != null) {
-                            songType.addVerse(verseType);
-                        }
-                        // Toast.makeText(getBaseContext(), verseType.getPhrases().size() +"", Toast.LENGTH_SHORT).show();
-                        verseType = new VerseType();
-                    } else if (mLine.trim().toLowerCase().contains("coro")) {
-                        verseType.setChorus(IndYesNoEnum.YES.getCodigo());
-                    } else {
-                        PhraseType phraseType = new PhraseType();
-                        String phrase = mLine.replace("-", "").trim();
-
-                        //Sempre que a frase iniciar com "-' significa que não terá
-                        // repetição para a linha e sim para a estrofe
-                        if (mLine.startsWith("-")) {
-                            repeatVerse = true;
-                        }
-
-                        if (mLine.contains("(Bis)")) {
-                            if (repeatVerse) {
-                                verseType.setIndBis(IndYesNoEnum.YES.getCodigo());
-                            } else {
-                                phraseType.setIndBis(IndYesNoEnum.YES.getCodigo());
-                            }
-                            phrase = phrase.replace("(Bis)", "");
-                        } else {
-                            for (short i = 1; i < 6; i++) {
-                                String xRepeat = "(" + i + "x)";
-                                if (mLine.contains(xRepeat)) {
-                                    if (repeatVerse) {
-                                        verseType.setxRepeat(i);
-                                    } else {
-                                        phraseType.setxRepeat(i);
-                                    }
-                                    phrase = phrase.replace(xRepeat, "");
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (mLine.contains("(W)") || mLine.contains("(M)")) {
-                            phraseType.setIndSing(IndSingEnum.WOMAN.getCodigo());
-                            phrase = phrase.replace("(W)", "").replace("(M)", "");
-                        } else if (mLine.contains("(M)") || mLine.contains("(H)")) {
-                            phraseType.setIndSing(IndSingEnum.MAN.getCodigo());
-                            phrase = phrase.replace("(M)", "").replace("(H)", "");
-                        } else if (mLine.contains("(All)") || mLine.contains("(Todos)")) {
-                            phraseType.setIndSing(IndSingEnum.ALL.getCodigo());
-                            phrase = phrase.replace("(All)", "").replace("(Todos)", "");
-                        }
-
-
-                        phraseType.setPhrase(phrase);
-                        verseType.addPhrase(phraseType);
-                    }
-                }
-            }
-
-            if (verseType != null) {
-                songType.addVerse(verseType);
-
-                SongRN songRN = new SongRN(getBaseContext());
-
-                songRN.createNewSong(songType);
-            }
-
-
-        } catch (IOException e) {
-            //log the exception
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    //log the exception
-                }
-            }
         }
     }
 

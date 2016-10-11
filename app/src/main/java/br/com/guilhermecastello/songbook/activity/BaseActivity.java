@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import br.com.guilhermecastello.songbook.R;
+import br.com.guilhermecastello.songbook.file.SongFile;
 
 /**
  * Created by guilh on 10/3/2016.
@@ -92,6 +93,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
             } else if (id == R.id.nav_playlist) {
                 startActivity(new Intent(getApplicationContext(), PlaylistListActivity.class));
+            } else if (id == R.id.nav_import) {
+                startActivity(new Intent(getApplicationContext(), SongImportActivity.class));
             }
 
             Menu navMenu = mNavigationView.getMenu();

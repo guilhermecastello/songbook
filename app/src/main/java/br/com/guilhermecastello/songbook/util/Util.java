@@ -282,17 +282,17 @@ public class Util {
     //  }
 
 
-    public static File buscaPathFiles(Context context, String appName) throws Exception {
+    public static File findPathFiles(Context context, String appName) throws Exception {
         File pathFiles = null;
 
         SongbookApplication prApp = (SongbookApplication) context.getApplicationContext();
 
         StringBuilder path = new StringBuilder();
+        path.append(Environment.DIRECTORY_DOCUMENTS);
+        path.append(File.separator);
         path.append(appName);
         path.append(File.separator);
         path.append("NewSongs");
-        path.append(File.separator);
-        path.append("Files");
 
         pathFiles = Environment.getExternalStoragePublicDirectory(path.toString());
 
