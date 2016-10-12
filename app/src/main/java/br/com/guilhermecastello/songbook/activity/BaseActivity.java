@@ -31,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     public abstract int getNavId();
 
+
     NavigationView mNavigationView = null;
 
     @Override
@@ -93,8 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
             } else if (id == R.id.nav_playlist) {
                 startActivity(new Intent(getApplicationContext(), PlaylistListActivity.class));
-            } else if (id == R.id.nav_import) {
-                startActivity(new Intent(getApplicationContext(), SongImportActivity.class));
             }
 
             Menu navMenu = mNavigationView.getMenu();

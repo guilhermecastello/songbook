@@ -29,9 +29,11 @@ import br.com.guilhermecastello.songbook.util.Util;
 
 public class SongListActivity extends BaseActivity {
 
-    protected final int    PERMISSIONS_REQUEST = 1;
+    protected final int PERMISSIONS_REQUEST = 1;
 
     private final int ADD_SONG_TO_PLAYLIST_RC = 1;
+
+    private final int IMPORT_SONGS_RC = 2;
 
     private ListView mLstView = null;
     private TextView mEmptyView = null;
@@ -132,21 +134,18 @@ public class SongListActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.song_list_options, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.mnuImportSongs) {
+            startActivityForResult(new Intent(getApplicationContext(), SongImportActivity.class), IMPORT_SONGS_RC);
         }
 
         return super.onOptionsItemSelected(item);
@@ -210,7 +209,14 @@ public class SongListActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            Toast.makeText(this, "Música adicionada a playlist", Toast.LENGTH_SHORT).show();
+            if (requestCode == ADD_SONG_TO_PLAYLIST_RC) {
+                Toast.makeText(this, "Música adicionada a playlist", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                if (requestCode == IMPORT_SONGS_RC) {
+                    refresh();
+                }
+            }
         }
     }
 

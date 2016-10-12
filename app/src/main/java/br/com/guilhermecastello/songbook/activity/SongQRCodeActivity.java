@@ -39,6 +39,7 @@ public class SongQRCodeActivity extends BaseActivity {
         return 0;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

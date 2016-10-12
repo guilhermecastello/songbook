@@ -27,6 +27,12 @@
     <string name="menu_song_remove_playlist">Remover da playlist</string>
     <string name="menu_song_show_qrcode">Exibir QR Code</string>
 
+    <!-- SongImportActivity -->
+    <string name="btn_song_import">Importar</string>
+    <string name="menu_song_import_from_asset">Importar de Assets</string>
+    <string name="menu_song_import_from_home_folder">Importar do diretório</string>
+    <string name="menu_song_import_from_qr_code">Importar por QR Code</string>
+
     <!--PlaylistListActivity -->
     <string name="txt_search_playlist_hint">Buscar playlist</string>
     <string name="txt_empty_playlist">Nenhuma playlist encontrada</string>

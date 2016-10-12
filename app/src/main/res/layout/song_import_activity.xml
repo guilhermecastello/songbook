@@ -11,40 +11,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.guilhermecastello.songbook.activity.SongImportActivity">
 
-    <Button
-        android:text="Importar de Assets"
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnImportFromAssets"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:id="@+id/prbImport"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="btnImportFromAssetsOnClick"/>
+        android:layout_alignParentEnd="true"/>
 
     <Button
-        android:text="Importar de NewSongs"
+        android:text="@string/btn_song_import"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnImportFromAssets"
-        android:id="@+id/btnImportFromHomeFolder"
+        android:layout_below="@+id/prbImport"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:enabled="false"
+        android:id="@+id/btnImport"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="btnImportFromHomeFolderOnClick"/>
+        android:onClick="btnImportOnClick"/>
 
-    <Button
-        android:text="Importar de QR Code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnImportFromHomeFolder"
-        android:id="@+id/btnImportFromQRCode"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="btnImportFromQRCodeOnClick"/>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnImport">
+    </ListView>
 
 </RelativeLayout>

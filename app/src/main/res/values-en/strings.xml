@@ -25,6 +25,12 @@
     <string name="menu_song_remove_playlist">Remove from playlist</string>
     <string name="menu_song_show_qrcode">Show QR Code</string>
 
+    <!-- SongImportActivity -->
+    <string name="btn_song_import">Import</string>
+    <string name="menu_song_import_from_asset">Import from Assets</string>
+    <string name="menu_song_import_from_home_folder">Import from Home folder</string>
+    <string name="menu_song_import_from_qr_code">Import by QR Code</string>
+
     <!--PlaylistListActivity -->
     <string name="txt_empty_song">No songs found</string>
     <string name="txt_empty_playlist">No playlists found</string>
