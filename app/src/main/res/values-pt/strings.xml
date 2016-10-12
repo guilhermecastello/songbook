@@ -25,6 +25,7 @@
     <string name="txt_empty_song">Nenhuma música encontrada</string>
     <string name="menu_song_add_playlist">Adicionar a playlist</string>
     <string name="menu_song_remove_playlist">Remover da playlist</string>
+    <string name="menu_song_show_qrcode">Exibir QR Code</string>
 
     <!--PlaylistListActivity -->
     <string name="txt_search_playlist_hint">Buscar playlist</string>

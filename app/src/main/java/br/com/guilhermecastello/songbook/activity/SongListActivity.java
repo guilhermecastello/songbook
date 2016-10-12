@@ -178,10 +178,10 @@ public class SongListActivity extends BaseActivity {
         try {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             SongType song = (SongType) mLstView.getItemAtPosition(info.position);
-
+            Intent it;
             switch (item.getItemId()) {
                 case R.id.mnuAddToPlaylist:
-                    Intent it = new Intent(getBaseContext(), PlaylistDialogActivity.class);
+                    it = new Intent(getBaseContext(), PlaylistDialogActivity.class);
                     it.putExtra("idSong", song.getId());
                     startActivityForResult(it, ADD_SONG_TO_PLAYLIST_RC);
                     return true;
@@ -192,6 +192,12 @@ public class SongListActivity extends BaseActivity {
                             refresh();
                         }
                     }
+                    return true;
+
+                case R.id.mnuShowQRCode:
+                    it = new Intent(getBaseContext(), SongQRCodeActivity.class);
+                    it.putExtra("idSong", song.getId());
+                    startActivity(it);
                     return true;
             }
 

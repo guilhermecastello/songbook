@@ -11,11 +11,13 @@ import java.util.List;
 
 import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.file.SongFile;
+import br.com.guilhermecastello.songbook.rnbd.SongRN;
 import br.com.guilhermecastello.songbook.type.SongType;
+import br.com.guilhermecastello.songbook.util.QRCodeUtil;
 
 public class SongImportActivity extends BaseActivity {
 
-
+    private SongRN mSongRN;
     private SongFile mSongFile = null;
 
     @Override
@@ -38,6 +40,7 @@ public class SongImportActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_import_activity);
 
+        mSongRN = new SongRN(getBaseContext());
     }
 
 
@@ -64,7 +67,7 @@ public class SongImportActivity extends BaseActivity {
             List<SongType> songs = mSongFile.readAllSongsToImport(false);
 
             for (SongType songType : songs) {
-                Toast.makeText(this, songType.getName(), Toast.LENGTH_SHORT).show();
+                mSongRN.createNewSong(songType);
             }
 
         }
@@ -74,6 +77,17 @@ public class SongImportActivity extends BaseActivity {
     }
 
     public void btnImportFromQRCodeOnClick(View view) {
-        startActivity(new Intent(getBaseContext(), QRCodeReaderActivity.class));
+        startActivityForResult(new Intent(getBaseContext(), QRCodeReaderActivity.class), 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            String qrCode = data.getExtras().getString("qrCode");
+
+            SongType songType = QRCodeUtil.readSongFromQRCode(qrCode);
+
+            Toast.makeText(this, songType.getName(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

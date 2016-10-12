@@ -1,5 +1,6 @@
 package br.com.guilhermecastello.songbook.activity;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -131,7 +132,10 @@ public class QRCodeReaderActivity extends BaseActivity {
                 }
 
 
-                //finish();
+                Intent it = new Intent();
+                it.putExtra("qrCode", scanText.getText());
+                setResult(RESULT_OK,it);
+                finish();
             }
         }
     };

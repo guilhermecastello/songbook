@@ -23,6 +23,7 @@
     <string name="txt_search_playlist_hint">Search playlist</string>
     <string name="menu_song_add_playlist">Add to playlist</string>
     <string name="menu_song_remove_playlist">Remove from playlist</string>
+    <string name="menu_song_show_qrcode">Show QR Code</string>
 
     <!--PlaylistListActivity -->
     <string name="txt_empty_song">No songs found</string>

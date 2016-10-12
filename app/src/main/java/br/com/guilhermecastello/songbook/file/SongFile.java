@@ -119,10 +119,10 @@ public class SongFile {
                         this.createNewPhrase(mLine, verseType);
                     }
                 }
+            }
 
-                if (verseType != null) {
-                    songType.addVerse(verseType);
-                }
+            if (verseType != null) {
+                songType.addVerse(verseType);
             }
         } finally {
             if (reader != null) {
