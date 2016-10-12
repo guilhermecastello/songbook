@@ -1,5 +1,6 @@
 package br.com.guilhermecastello.songbook.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -73,6 +74,6 @@ public class SongImportActivity extends BaseActivity {
     }
 
     public void btnImportFromQRCodeOnClick(View view) {
-        Toast.makeText(this, "Em desenvolvimento", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getBaseContext(), QRCodeReaderActivity.class));
     }
 }
