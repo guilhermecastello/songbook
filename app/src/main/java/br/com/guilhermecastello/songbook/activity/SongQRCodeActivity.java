@@ -1,5 +1,8 @@
 package br.com.guilhermecastello.songbook.activity;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -56,8 +59,13 @@ public class SongQRCodeActivity extends BaseActivity {
                 songTypeOpened = songRN.openSong(idSong);
             }
         }
+    }
 
-        showQRCode();
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new AsyncCaller().execute();
     }
 
     private void showQRCode()  {
@@ -74,7 +82,44 @@ public class SongQRCodeActivity extends BaseActivity {
         }
     }
 
+    private class AsyncCaller extends AsyncTask<Void, Void, Void>
+    {
+        ProgressDialog pdLoading = new ProgressDialog(SongQRCodeActivity.this);
+        Bitmap qrCodeImg;
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
+            pdLoading.setMessage(SongQRCodeActivity.this.getString(R.string.progress_dialog_qr_code));
+            pdLoading.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                QRCodeWriter writer = new QRCodeWriter();
+
+                String qrCode = QRCodeUtil.createQRCode(songTypeOpened);
+
+                BitMatrix matrix = writer.encode(qrCode, BarcodeFormat.QR_CODE, 800, 800);
+
+                qrCodeImg = QRCodeUtil.toBitmap(matrix);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            mImgQrCode.setImageBitmap(qrCodeImg);
+            pdLoading.dismiss();
+        }
+
+    }
 
 }

@@ -19,6 +19,7 @@
     <!-- Dialogs -->
     <string name="alert_box_title">Atenção</string>
     <string name="listview_menu_title">Opções</string>
+    <string name="progress_dialog_qr_code">Gerando QR Code</string>
 
     <!--SongListActivity -->
     <string name="txt_search_song_hint">Buscar música</string>
@@ -41,10 +42,10 @@
 
 
     <!--PlaylistNewActivity -->
-    <string name="title_playlist_new">Create New Playlist</string>
-    <string name="txt_name_playlist_hint">Playlist name</string>
-    <string name="btn_create_playlist">Create</string>
-    <string name="btn_cancel_playlist">Cancel</string>
+    <string name="title_playlist_new">Criar Nova Playlist</string>
+    <string name="txt_name_playlist_hint">Nome da Playlist</string>
+    <string name="btn_create_playlist">Criar</string>
+    <string name="btn_cancel_playlist">Cancelar</string>
 
 
     <!--**************** Enumeradores **********************-->

@@ -17,6 +17,7 @@
     <!-- Dialogs -->
     <string name="alert_box_title">Warning</string>
     <string name="listview_menu_title">Options</string>
+    <string name="progress_dialog_qr_code">Generating QR Code</string>
 
     <!--SongListActivity -->
     <string name="txt_search_song_hint">Search song</string>

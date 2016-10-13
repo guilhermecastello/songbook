@@ -1,11 +1,14 @@
 package br.com.guilhermecastello.songbook.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.TypedValue;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -20,6 +23,7 @@ import java.util.List;
 import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.enumeration.IndSingEnum;
 import br.com.guilhermecastello.songbook.enumeration.IndYesNoEnum;
+import br.com.guilhermecastello.songbook.file.SongFile;
 import br.com.guilhermecastello.songbook.rnbd.SongRN;
 import br.com.guilhermecastello.songbook.type.PhraseType;
 import br.com.guilhermecastello.songbook.type.PlaylistType;
@@ -243,6 +247,26 @@ public class SongViewActivity extends BaseActivity {
             return tratouEvento;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.song_view_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.mnuSongShowQRCode) {
+            Intent it = new Intent(getBaseContext(), SongQRCodeActivity.class);
+            it.putExtra("idSong", songTypeOpened.getId());
+            startActivity(it);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private class MyFlingGestureDetector extends GestureDetector.SimpleOnGestureListener {
