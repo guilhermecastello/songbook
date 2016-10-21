@@ -6,4 +6,9 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/menu_playlist_new"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/mnuImportPlaylist"
+        android:title="@string/menu_playlist_import"
+        app:showAsAction="never"/>
 </menu>

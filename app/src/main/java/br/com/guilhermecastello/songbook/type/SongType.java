@@ -7,7 +7,7 @@ import java.util.List;
  * Created by guilherme-castello on 27/09/2016.
  */
 
-public class SongType {
+public class SongType extends BaseType {
 
     private Long id;
 

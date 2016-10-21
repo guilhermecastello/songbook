@@ -8,18 +8,20 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.type.SongType;
 
 /**
  * Created by guilherme-castello on 27/09/2016.
  */
 
-public class SongImportAdapter extends BaseAdapter implements Filterable {
+public class SongImportAdapter extends BaseAdapter {
 
     private final Context context;
 
@@ -27,7 +29,9 @@ public class SongImportAdapter extends BaseAdapter implements Filterable {
     private List<SongType> fullList = null;
 
     static class ViewHolder {
-        protected TextView text1;
+        protected TextView txvSongAdSong;
+        protected TextView txvSongAdResult;
+        protected ImageView imgSongAdStatus;
     }
 
     public SongImportAdapter(Context ctx, List<SongType> list) {
@@ -66,9 +70,11 @@ public class SongImportAdapter extends BaseAdapter implements Filterable {
 
         if (convertView == null) {
             LayoutInflater layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layout.inflate(android.R.layout.simple_list_item_1, null);
+            view = layout.inflate(R.layout.song_import_adapter, null);
             viewHolder = new ViewHolder();
-            viewHolder.text1 = (TextView) view.findViewById(android.R.id.text1);
+            viewHolder.txvSongAdSong = (TextView) view.findViewById(R.id.txvSongAdSong);
+            viewHolder.txvSongAdResult = (TextView) view.findViewById(R.id.txvSongAdResult);
+            viewHolder.imgSongAdStatus = (ImageView) view.findViewById(R.id.imgSongAdStatus);
 
             view.setTag(viewHolder);
         } else {
@@ -83,44 +89,10 @@ public class SongImportAdapter extends BaseAdapter implements Filterable {
         songName.append(" - ");
         songName.append(song.getName());
 
-        viewHolder.text1.setText(songName);
+        viewHolder.txvSongAdSong.setText(songName);
+        viewHolder.txvSongAdResult.setText(song.getResult());
 
         return view;
-    }
-
-    public Filter getFilter() {
-
-        return new Filter() {
-            @SuppressWarnings("unchecked")
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                list = (List<SongType>) results.values;
-                notifyDataSetChanged();
-            }
-
-            protected FilterResults performFiltering(CharSequence constraint) {
-                List<SongType> filteredResults = getFilteredResults(constraint);
-                FilterResults results = new FilterResults();
-                results.values = filteredResults;
-                return results;
-            }
-        };
-    }
-
-    private List<SongType> getFilteredResults(CharSequence constraint) {
-        List<SongType> list = new ArrayList<SongType>();
-
-        if (constraint == null || constraint.equals("")) {
-            list = fullList;
-        } else {
-            for (SongType songType : fullList) {
-                String item = songType.getNumber() + " - " + songType.getName();
-
-                if (item.toUpperCase().contains(constraint.toString().toUpperCase())) {
-                    list.add(songType);
-                }
-            } // End For
-        }
-        return list;
     }
 
 }

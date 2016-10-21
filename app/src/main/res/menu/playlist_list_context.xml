@@ -4,4 +4,8 @@
         android:id="@+id/mnuRemovePlaylist"
         android:title="@string/menu_playlist_remove"/>
 
+    <item
+        android:id="@+id/mnuPlaylistShowQRCode"
+        android:title="@string/menu_playlist_show_qrcode"/>
+
 </menu>

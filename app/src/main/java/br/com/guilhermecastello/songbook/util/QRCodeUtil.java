@@ -5,6 +5,8 @@ import android.graphics.Color;
 
 import com.google.zxing.common.BitMatrix;
 
+import java.util.ArrayList;
+
 import br.com.guilhermecastello.songbook.exception.RNException;
 import br.com.guilhermecastello.songbook.type.PhraseType;
 import br.com.guilhermecastello.songbook.type.PlaylistType;
@@ -82,7 +84,29 @@ public class QRCodeUtil {
     }
 
     public static PlaylistType readPlaylistFromQRCode(String qrCode) {
-        return null;
+        PlaylistType playlistTypeVolta = new PlaylistType();
+        SongType songTypeVolta = null;
+
+        String[] objetos = qrCode.split(OBJECT_SEPARATOR);
+
+        for (int i = 0; i < objetos.length; i++) {
+
+            if (i == 0) {
+                playlistTypeVolta.setName(objetos[i]);
+            }
+            else {
+                String[] attrs = objetos[i].split(FIELD_SEPARATOR);
+                songTypeVolta = new SongType();
+                songTypeVolta.setNumber(Integer.valueOf(attrs[0]));
+                songTypeVolta.setName(attrs[1]);
+                songTypeVolta.setLanguage(Short.valueOf(attrs[2]));
+
+                playlistTypeVolta.addSong(songTypeVolta);
+            }
+        }
+
+
+        return playlistTypeVolta;
     }
 
 
@@ -163,7 +187,21 @@ public class QRCodeUtil {
     }
 
     public static String createQRCode(PlaylistType playlistType) {
-        return null;
+        StringBuilder qrCode = new StringBuilder();
+
+        qrCode.append(playlistType.getName());
+        qrCode.append(OBJECT_SEPARATOR);
+
+        for (SongType songType : playlistType.getSongs()) {
+            qrCode.append(songType.getNumber());
+            qrCode.append(FIELD_SEPARATOR);
+            qrCode.append(songType.getName());
+            qrCode.append(FIELD_SEPARATOR);
+            qrCode.append(songType.getLanguage());
+            qrCode.append(OBJECT_SEPARATOR);
+        }
+
+        return qrCode.toString();
     }
 
     public static Bitmap toBitmap(BitMatrix matrix) {

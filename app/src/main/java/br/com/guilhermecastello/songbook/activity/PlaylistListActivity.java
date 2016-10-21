@@ -104,6 +104,9 @@ public class PlaylistListActivity extends BaseActivity {
                     Intent it = new Intent(getBaseContext(), PlaylistNewActivity.class);
                     startActivityForResult(it, CREATE_PLAYLIST_RC);
                     return true;
+                case R.id.mnuImportPlaylist:
+                    startActivity(new Intent(getBaseContext(), PlaylistImportActivity.class));
+                    return true;
             }
         } catch (Exception exc) {
 
@@ -139,6 +142,11 @@ public class PlaylistListActivity extends BaseActivity {
                             refresh();
                         }
                     }
+                    return true;
+                case R.id.mnuPlaylistShowQRCode:
+                    Intent it = new Intent(getBaseContext(), PlaylistQRCodeActivity.class);
+                    it.putExtra("idPlaylist", playlist.getId());
+                    startActivity(it);
                     return true;
             }
 

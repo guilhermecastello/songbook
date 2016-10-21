@@ -38,8 +38,9 @@
     <string name="txt_search_playlist_hint">Buscar playlist</string>
     <string name="txt_empty_playlist">Nenhuma playlist encontrada</string>
     <string name="menu_playlist_new">Nova Playlist</string>
+    <string name="menu_playlist_import">Importar Playlist</string>
     <string name="menu_playlist_remove">Remover playlist</string>
-
+    <string name="menu_playlist_show_qrcode">Exibir QR Code</string>
 
     <!--PlaylistNewActivity -->
     <string name="title_playlist_new">Criar Nova Playlist</string>
@@ -47,6 +48,10 @@
     <string name="btn_create_playlist">Criar</string>
     <string name="btn_cancel_playlist">Cancelar</string>
 
+
+    <!-- PlaylistImportActivity -->
+    <string name="btn_playlist_import">Importar</string>
+    <string name="menu_playlist_import_from_qr_code">Importar por QR Code</string>
 
     <!--**************** Enumeradores **********************-->
     <!-- IndSingEnum -->
@@ -63,10 +68,14 @@
     <string name="language_enum_english">Inglês</string>
     <string name="language_enum_spanish">Espanhol</string>
 
-
+    <!-- ImportStatusEnum -->
+    <string name="import_status_enum_pending">Pendente</string>
+    <string name="import_status_enum_imported">Importada</string>
+    <string name="import_status_enum_fail">Falha</string>
     <!-- ****************** Exceptions ************************-->
     <!-- Playlist -->
     <string name="playlist_duplicated_song">Esta música já está na sua playlist.</string>
+    <string name="playlist_no_songs">Esta playlist está vazia.</string>
 
 </resources>
 

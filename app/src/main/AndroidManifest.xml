@@ -50,6 +50,10 @@
         </activity>
         <activity android:name=".activity.SongQRCodeActivity">
         </activity>
+        <activity android:name=".activity.PlaylistQRCodeActivity">
+        </activity>
+        <activity android:name=".activity.PlaylistImportActivity">
+        </activity>
     </application>
 
 </manifest>

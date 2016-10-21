@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.guilhermecastello.songbook.enumeration.ImportStatusEnum;
 import br.com.guilhermecastello.songbook.exception.RNException;
 import br.com.guilhermecastello.songbook.R;
 import br.com.guilhermecastello.songbook.SongbookApplication;
@@ -29,6 +30,68 @@ public class PlaylistRN extends AppRN<PlaylistType> {
     public PlaylistRN(Context context) {
         super(context);
     }
+
+
+    public PlaylistType importPlaylist(PlaylistType playlist) {
+        SQLiteDatabase db = null;
+
+        SongRN songRN = new SongRN(getContext());
+
+        ArrayList<SongType> songs = new ArrayList<>();
+
+        PlaylistSongType p = new PlaylistSongType();
+        try {
+            db = getWritableDatabase();
+
+            if (playlist.getSongs() == null || playlist.getSongs().size() == 0) {
+                throw new RNException(SongbookApplication.getContext().getString(R.string.playlist_no_songs));
+            }
+
+            // Inicia transacao
+            db.beginTransaction();
+
+            Long id = this.insert(playlist, db);
+
+            playlist.setId(id);
+
+            for (SongType songType : playlist.getSongs()) {
+                SongType songFound = songRN.getByNumber(songType, db);
+                if (songFound != null) {
+
+                    ContentValues ctv = new ContentValues();
+                    ctv.put("idSong", songFound.getId());
+                    ctv.put("idPlaylist", playlist.getId());
+                    ctv.put("songOrder", getNextOrderNumber(playlist, db));
+
+                    db.insertOrThrow("PlaylistSongs", null, ctv);
+
+                    songFound.setResult("Adicionada a playlist");
+                    songFound.setStatus(ImportStatusEnum.IMPORTED.getCodigo());
+                    songs.add(songFound);
+                }
+                else {
+                    songType.setResult("Música não foi encontrada.");
+                    songType.setStatus(ImportStatusEnum.FAIL.getCodigo());
+                    songs.add(songType);
+                }
+            }
+
+            playlist.setSongs(songs);
+
+            // Finaliza transacao
+            db.setTransactionSuccessful();
+        } finally {
+            if (db != null) {
+                if (db.inTransaction()) {
+                    db.endTransaction();
+                }
+                db.close();
+            }
+        }
+
+        return playlist;
+    }
+
 
     public void addSongToPlaylist(SongType songType, PlaylistType playListType) {
         SQLiteDatabase db = null;
