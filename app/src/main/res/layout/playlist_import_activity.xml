@@ -11,22 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.guilhermecastello.songbook.activity.PlaylistImportActivity">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/prbImport"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
-
     <Button
         android:text="@string/btn_song_import"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/prbImport"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:enabled="false"
@@ -35,11 +23,32 @@
         android:layout_alignParentEnd="true"
         android:onClick="btnImportOnClick"/>
 
+    <TextView
+        android:text="@string/txt_name_playlist_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnImport"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"
+        android:id="@+id/txvPlaylistNameLabel"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txvPlaylistNameLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"
+        android:id="@+id/txvPlaylistName"/>
+
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnImport">
+        android:layout_below="@id/txvPlaylistName">
     </ListView>
+
+
 
 </RelativeLayout>

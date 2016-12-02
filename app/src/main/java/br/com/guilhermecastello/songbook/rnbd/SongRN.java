@@ -377,6 +377,36 @@ public class SongRN extends AppRN<SongType> {
         return songTypeVolta;
     }
 
+    public SongType getByNumber(SongType songType) {
+        SongType songTypeVolta = null;
+        SQLiteDatabase db = null;
+        Cursor rs = null;
+
+        try {
+            db = getReadableDatabase();
+
+            String[] param = new String[]{String.valueOf(songType.getNumber()), String.valueOf(songType.getLanguage())};
+
+            rs = db.query(mTableName, mColumns, "number=? AND language=?", param, null, null, null);
+
+            if (rs.moveToFirst()) {
+                songTypeVolta = new SongType();
+                songTypeVolta.setId(Util.getLongValue(rs, "id"));
+                songTypeVolta.setName(Util.getStringValue(rs, "name"));
+                songTypeVolta.setNumber(Util.getIntegerValue(rs, "number"));
+                songTypeVolta.setLanguage(Util.getShortValue(rs, "language"));
+            }
+        } catch (Exception exc) {
+            throw new RuntimeException(exc);
+        } finally {
+            if (rs != null)
+                rs.close();
+            if (db != null)
+                db.close();
+        }
+        return songTypeVolta;
+    }
+
     public SongType getByNumber(SongType songType, SQLiteDatabase db) {
         SongType songTypeVolta = null;
         Cursor rs = null;

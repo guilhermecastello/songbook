@@ -110,7 +110,9 @@ public class SongFile {
                 } else {
                     if (mLine.trim().equals("")) {
                         if (verseType != null) {
-                            songType.addVerse(verseType);
+                            if (verseType.getPhrases() != null && !verseType.getPhrases().isEmpty()) {
+                                songType.addVerse(verseType);
+                            }
                         }
                         verseType = new VerseType();
                     } else if (mLine.trim().toLowerCase().contains("coro")) {
@@ -140,7 +142,7 @@ public class SongFile {
     private SongType createNewSong(String line) {
         SongType songType = new SongType();
 
-        String[] fields = line.split("-");
+        String[] fields = line.split(" - ");
         if (fields.length == 2) {
             songType.setNumber(Integer.valueOf(fields[0].trim()));
             songType.setName(fields[1].trim());
@@ -167,37 +169,8 @@ public class SongFile {
 
     private void createNewPhrase(String line, VerseType verseType) {
         PhraseType phraseType = new PhraseType();
-        boolean repeatVerse = false;
 
-        String phrase = line.replace("-", "").trim();
-
-        //Sempre que a frase iniciar com "-' significa que não terá
-        // repetição para a linha e sim para a estrofe
-        if (line.startsWith("-")) {
-            repeatVerse = true;
-        }
-
-        if (line.contains("(Bis)")) {
-            if (repeatVerse) {
-                verseType.setIndBis(IndYesNoEnum.YES.getCodigo());
-            } else {
-                phraseType.setIndBis(IndYesNoEnum.YES.getCodigo());
-            }
-            phrase = phrase.replace("(Bis)", "");
-        } else {
-            for (short i = 1; i < 6; i++) {
-                String xRepeat = "(" + i + "x)";
-                if (line.contains(xRepeat)) {
-                    if (repeatVerse) {
-                        verseType.setxRepeat(i);
-                    } else {
-                        phraseType.setxRepeat(i);
-                    }
-                    phrase = phrase.replace(xRepeat, "");
-                    break;
-                }
-            }
-        }
+        String phrase = line.trim();
 
         if (line.contains("(W)") || line.contains("(M)")) {
             phraseType.setIndSing(IndSingEnum.WOMAN.getCodigo());
@@ -205,9 +178,9 @@ public class SongFile {
         } else if (line.contains("(M)") || line.contains("(H)")) {
             phraseType.setIndSing(IndSingEnum.MAN.getCodigo());
             phrase = phrase.replace("(M)", "").replace("(H)", "");
-        } else if (line.contains("(All)") || line.contains("(Todos)")) {
+        } else if (line.contains("(All)") || line.contains("(Todos)") || line.contains("(A)") || line.contains("(T)")) {
             phraseType.setIndSing(IndSingEnum.ALL.getCodigo());
-            phrase = phrase.replace("(All)", "").replace("(Todos)", "");
+            phrase = phrase.replace("(All)", "").replace("(Todos)", "").replace("(A)", "").replace("(T)", "");
         }
 
         phraseType.setPhrase(phrase);

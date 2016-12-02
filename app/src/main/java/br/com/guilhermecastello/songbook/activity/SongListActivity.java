@@ -29,7 +29,7 @@ import br.com.guilhermecastello.songbook.util.Util;
 
 public class SongListActivity extends BaseActivity {
 
-    protected final int PERMISSIONS_REQUEST = 1;
+
 
     private final int ADD_SONG_TO_PLAYLIST_RC = 1;
 
@@ -93,7 +93,7 @@ public class SongListActivity extends BaseActivity {
 
         refresh();
 
-        verifyPermissions();
+
     }
 
     private void refresh() {
@@ -117,19 +117,7 @@ public class SongListActivity extends BaseActivity {
         }
     }
 
-    private void verifyPermissions() {
-        String[] permissions = Util.getAppPremissions(this);
 
-        if (permissions != null) {
-            for (String permission : permissions) {
-                // Verificar se existe alguma permissao faltando para funcionamento do app
-                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                    Util.requestPermission(this, permissions, PERMISSIONS_REQUEST);
-                    return;
-                }
-            }
-        }
-    }
 
 
     @Override

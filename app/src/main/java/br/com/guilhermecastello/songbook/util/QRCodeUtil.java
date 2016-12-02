@@ -49,13 +49,7 @@ public class QRCodeUtil {
                     verseType.setChorus(Byte.valueOf(attrs[1]));
                 }
                 if (attrs[2] != null && !attrs[2].trim().equals(DEFAULT_NULL_VALUE)) {
-                    verseType.setIndBis(Byte.valueOf(attrs[2]));
-                }
-                if (attrs[3] != null && !attrs[3].trim().equals(DEFAULT_NULL_VALUE)) {
                     verseType.setTypeVoice(Short.valueOf(attrs[3]));
-                }
-                if (attrs[4] != null && !attrs[4].trim().equals(DEFAULT_NULL_VALUE)) {
-                    verseType.setxRepeat(Short.valueOf(attrs[4]));
                 }
 
             } else if (attrs[0].equals(PHRASE_IDENTIFIER)) {
@@ -63,12 +57,6 @@ public class QRCodeUtil {
                 phraseType.setPhrase(attrs[1]);
                 if (attrs[2] != null && !attrs[2].trim().equals(DEFAULT_NULL_VALUE)) {
                     phraseType.setIndSing(Byte.valueOf(attrs[2]));
-                }
-                if (attrs[3] != null && !attrs[3].trim().equals(DEFAULT_NULL_VALUE)) {
-                    phraseType.setIndBis(Byte.valueOf(attrs[3]));
-                }
-                if (attrs[4] != null && !attrs[4].trim().equals(DEFAULT_NULL_VALUE)) {
-                    phraseType.setxRepeat(Short.valueOf(attrs[4]));
                 }
                 verseType.addPhrase(phraseType);
             } else {
@@ -132,22 +120,8 @@ public class QRCodeUtil {
                 qrCode.append(DEFAULT_NULL_VALUE);
             }
             qrCode.append(FIELD_SEPARATOR);
-            if (verseType.getIndBis() != null) {
-                qrCode.append(verseType.getIndBis());
-            }
-            else {
-                qrCode.append(DEFAULT_NULL_VALUE);
-            }
-            qrCode.append(FIELD_SEPARATOR);
             if (verseType.getTypeVoice() != null) {
                 qrCode.append(verseType.getTypeVoice());
-            }
-            else {
-                qrCode.append(DEFAULT_NULL_VALUE);
-            }
-            qrCode.append(FIELD_SEPARATOR);
-            if (verseType.getxRepeat() != null) {
-                qrCode.append(verseType.getxRepeat());
             }
             else {
                 qrCode.append(DEFAULT_NULL_VALUE);
@@ -161,20 +135,6 @@ public class QRCodeUtil {
                 qrCode.append(FIELD_SEPARATOR);
                 if (phraseType.getIndSing() != null) {
                     qrCode.append(phraseType.getIndSing());
-                }
-                else {
-                    qrCode.append(DEFAULT_NULL_VALUE);
-                }
-                qrCode.append(FIELD_SEPARATOR);
-                if (phraseType.getIndSing() != null) {
-                    qrCode.append(phraseType.getIndBis());
-                }
-                else {
-                    qrCode.append(DEFAULT_NULL_VALUE);
-                }
-                qrCode.append(FIELD_SEPARATOR);
-                if (phraseType.getIndSing() != null) {
-                    qrCode.append(phraseType.getxRepeat());
                 }
                 else {
                     qrCode.append(DEFAULT_NULL_VALUE);

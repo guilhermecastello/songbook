@@ -20,7 +20,7 @@ public class PhraseRN extends AppRN<PhraseType> {
 
     private String   mTableName = "Phrase";
 
-    private String[] mColumns   = new String[] { "id", "idVerse", "phrase","indSing","indBis","xRepeat" };
+    private String[] mColumns   = new String[] { "id", "idVerse", "phrase","indSing" };
 
     public PhraseRN(Context context) {
         super(context);
@@ -34,8 +34,6 @@ public class PhraseRN extends AppRN<PhraseType> {
         ctv.put("idVerse", type.getIdVerse());
         ctv.put("phrase", type.getPhrase());
         ctv.put("indSing", type.getIndSing());
-        ctv.put("indBis", type.getIndBis());
-        ctv.put("xRepeat", type.getxRepeat());
 
 
         long id = db.insertOrThrow(mTableName, null, ctv);
@@ -58,8 +56,6 @@ public class PhraseRN extends AppRN<PhraseType> {
             ctv.put("idVerse", type.getIdVerse());
             ctv.put("phrase", type.getPhrase());
             ctv.put("indSing", type.getIndSing());
-            ctv.put("indBis", type.getIndBis());
-            ctv.put("xRepeat", type.getxRepeat());
 
             long id = db.insertOrThrow(mTableName, null, ctv);
 
@@ -112,9 +108,6 @@ public class PhraseRN extends AppRN<PhraseType> {
                 phraseTypeVolta.setIdVerse(Util.getLongValue(rs, "idVerse"));
                 phraseTypeVolta.setPhrase(Util.getStringValue(rs, "phrase"));
                 phraseTypeVolta.setIndSing(Util.getByteValue(rs, "indSing"));
-                phraseTypeVolta.setIndBis(Util.getByteValue(rs, "indBis"));
-                phraseTypeVolta.setxRepeat(Util.getShortValue(rs, "xRepeat"));
-
 
                 lista.add(phraseTypeVolta);
             }

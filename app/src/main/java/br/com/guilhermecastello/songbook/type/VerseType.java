@@ -15,9 +15,6 @@ public class VerseType {
 
     private Byte chorus;
 
-    private Byte indBis;
-
-    private Short xRepeat;
 
     private Short typeVoice;
 
@@ -32,8 +29,6 @@ public class VerseType {
 
     public VerseType(Byte chorus, Byte indBis, Short xRepeat,Short typeVoice, List<PhraseType> list) {
         this.chorus = chorus;
-        this.indBis = indBis;
-        this.xRepeat = xRepeat;
         this.typeVoice = typeVoice;
         this.phrases = list;
     }
@@ -69,22 +64,6 @@ public class VerseType {
 
     public void setPhrases(List<PhraseType> phrases) {
         this.phrases = phrases;
-    }
-
-    public Byte getIndBis() {
-        return indBis;
-    }
-
-    public void setIndBis(Byte indBis) {
-        this.indBis = indBis;
-    }
-
-    public Short getxRepeat() {
-        return xRepeat;
-    }
-
-    public void setxRepeat(Short xRepeat) {
-        this.xRepeat = xRepeat;
     }
 
     public Short getTypeVoice() {

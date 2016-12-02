@@ -129,27 +129,8 @@ public class SongViewActivity extends BaseActivity {
                     verse.append("Sopranos:");
                 }
 
-                //Controle de repetição da estrofe, pode ser BIS ou um numero X de vezes
-                if (verseType.getIndBis() != null) {
-                    if (verseType.getIndBis().equals(IndYesNoEnum.YES.getCodigo())) {
-                        verse.append("- ");
-                        bis = true;
-                    }
-                } else {
-                    if (verseType.getxRepeat() != null) {
-                        if (verseType.getxRepeat() > 0) {
-                            verse.append(" (").append(verseType.getxRepeat()).append("X)");
-                        }
-                    }
-                }
 
-                verse.append(this.buildPhrases(verseType.getPhrases(), bis));
-
-                if (verseType.getIndBis() != null) {
-                    if (verseType.getIndBis().equals(IndYesNoEnum.YES.getCodigo())) {
-                        verse.append(" (BIS)");
-                    }
-                }
+                verse.append(this.buildPhrases(verseType.getPhrases()));
 
 
                 txvVerse.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -161,18 +142,10 @@ public class SongViewActivity extends BaseActivity {
         }
     }
 
-    private String buildPhrases(List<PhraseType> phrases, boolean verseBis) {
+    private String buildPhrases(List<PhraseType> phrases) {
         StringBuilder verse = new StringBuilder();
         for (PhraseType phraseType : phrases) {
-            if (!verseBis) {
-                verse.append("\n");
-            }
-            if (phraseType.getIndBis() != null) {
-                if (phraseType.getIndBis().equals(IndYesNoEnum.YES.getCodigo())) {
-                    verse.append("- ");
-                }
-            }
-
+            verse.append("\n");
             verse.append(phraseType.getPhrase());
             if (phraseType.getIndSing() != null) {
                 if (phraseType.getIndSing() > 0) {
@@ -180,19 +153,7 @@ public class SongViewActivity extends BaseActivity {
                 }
             }
 
-            if (phraseType.getIndBis() != null) {
-                if (phraseType.getIndBis().equals(IndYesNoEnum.YES.getCodigo())) {
-                    verse.append(" (BIS)");
-                }
-            } else {
-                if (phraseType.getxRepeat() != null) {
-                    if (phraseType.getxRepeat() > 0) {
-                        verse.append(" (").append(phraseType.getxRepeat()).append("X)");
-                    }
-                }
-            }
 
-            verseBis = false;
         }
 
         return verse.toString();

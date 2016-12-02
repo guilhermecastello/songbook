@@ -32,6 +32,8 @@ public class PlaylistListActivity extends BaseActivity {
 
     private final int CREATE_PLAYLIST_RC = 1;
 
+    private final int IMPORT_PLAYLIST_RC = 2;
+
     private ListView mLstView = null;
     private TextView mEmptyView = null;
     private EditText mTxtSearch = null;
@@ -105,7 +107,7 @@ public class PlaylistListActivity extends BaseActivity {
                     startActivityForResult(it, CREATE_PLAYLIST_RC);
                     return true;
                 case R.id.mnuImportPlaylist:
-                    startActivity(new Intent(getBaseContext(), PlaylistImportActivity.class));
+                    startActivityForResult(new Intent(getBaseContext(), PlaylistImportActivity.class), IMPORT_PLAYLIST_RC);
                     return true;
             }
         } catch (Exception exc) {

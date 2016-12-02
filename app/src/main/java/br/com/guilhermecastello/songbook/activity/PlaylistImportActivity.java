@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,13 @@ public class PlaylistImportActivity extends BaseActivity {
 
     private ListView mLstView;
 
+    private TextView mTxvPlaylistName;
+
+    private TextView mTxvPlaylistNameLabel;
+
     private SongImportAdapter mAdapter;
+
+    private boolean imported;
 
     @Override
     public boolean showNavigationMenu() {
@@ -65,7 +72,11 @@ public class PlaylistImportActivity extends BaseActivity {
 
         mPrbImport = (ProgressBar) findViewById(R.id.prbImport);
         mBtnImport = (Button) findViewById(R.id.btnImport);
-        mLstView = (ListView) findViewById(android.R.id.list);
+        mLstView = (ListView) findViewById(R.id.listView);
+        mTxvPlaylistName = (TextView) findViewById(R.id.txvPlaylistName);
+        mTxvPlaylistNameLabel = (TextView) findViewById(R.id.txvPlaylistNameLabel);
+
+        imported = false;
     }
 
     @Override
@@ -91,8 +102,13 @@ public class PlaylistImportActivity extends BaseActivity {
         mAdapter = new SongImportAdapter(getBaseContext(), mPlaylist.getSongs());
         mLstView.setAdapter(mAdapter);
 
+        mTxvPlaylistName.setText(mPlaylist.getName());
+        mTxvPlaylistName.setVisibility(View.VISIBLE);
+        mTxvPlaylistNameLabel.setVisibility(View.VISIBLE);
+
+
         if (mPlaylist.getSongs() != null && mPlaylist.getSongs().size() > 0) {
-            mBtnImport.setEnabled(true);
+            mBtnImport.setEnabled(!imported);
         }
     }
 
@@ -101,20 +117,21 @@ public class PlaylistImportActivity extends BaseActivity {
 
         mPlaylistRN = new PlaylistRN(getBaseContext());
 
-//        try {
+        try {
             PlaylistType playlistImported = mPlaylistRN.importPlaylist(mPlaylist);
 
             if (playlistImported != null) {
                 mPlaylist = playlistImported;
+                imported = true;
+                setResult(RESULT_OK);
             }
-//        } catch (Exception ex) {
-//            Util.showWarning(getBaseContext(), ex.getMessage());
-//        }
+        } catch (Exception ex) {
+            Util.showWarning(getBaseContext(), ex.getMessage());
+        }
 
         showSongsToImport();
 
-        setResult(RESULT_OK);
-        //finish();
+
     }
 
     @Override
@@ -125,8 +142,10 @@ public class PlaylistImportActivity extends BaseActivity {
             PlaylistType playlist = QRCodeUtil.readPlaylistFromQRCode(qrCode);
 
             mPlaylist = playlist;
+            imported = false;
 
             showSongsToImport();
         }
     }
 }
+

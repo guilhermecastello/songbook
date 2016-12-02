@@ -21,7 +21,7 @@ public class VerseRN extends AppRN<VerseType> {
     private String   mTableName = "Verse";
 
 
-    private String[] mColumns   = new String[] { "id", "idSong", "chorus","indBis","xRepeat", "typeVoice" };
+    private String[] mColumns   = new String[] { "id", "idSong", "chorus", "typeVoice" };
     public VerseRN(Context context) {
         super(context);
     }
@@ -40,8 +40,6 @@ public class VerseRN extends AppRN<VerseType> {
             ContentValues ctv = new ContentValues();
             ctv.put("idSong", verse.getIdSong());
             ctv.put("chorus", verse.getChorus());
-            ctv.put("indBis", verse.getIndBis());
-            ctv.put("xRepeat", verse.getxRepeat());
             ctv.put("typeVoice", verse.getTypeVoice());
 
             long id = db.insertOrThrow(mTableName, null, ctv);
@@ -64,8 +62,6 @@ public class VerseRN extends AppRN<VerseType> {
         ContentValues ctv = new ContentValues();
         ctv.put("idSong", verse.getIdSong());
         ctv.put("chorus", verse.getChorus());
-        ctv.put("indBis", verse.getIndBis());
-        ctv.put("xRepeat", verse.getxRepeat());
         ctv.put("typeVoice", verse.getTypeVoice());
 
         long id = db.insertOrThrow(mTableName, null, ctv);
@@ -101,8 +97,6 @@ public class VerseRN extends AppRN<VerseType> {
                 verseTypeVolta.setId(Util.getLongValue(rs, "id"));
                 verseTypeVolta.setIdSong(Util.getLongValue(rs, "idSong"));
                 verseTypeVolta.setChorus(Util.getByteValue(rs, "chorus"));
-                verseTypeVolta.setIndBis(Util.getByteValue(rs, "indBis"));
-                verseTypeVolta.setxRepeat(Util.getShortValue(rs, "xRepeat"));
                 verseTypeVolta.setTypeVoice(Util.getShortValue(rs, "typeVoice"));
             }
 
@@ -137,8 +131,6 @@ public class VerseRN extends AppRN<VerseType> {
                 verseTypeVolta.setId(Util.getLongValue(rs, "id"));
                 verseTypeVolta.setIdSong(Util.getLongValue(rs, "idSong"));
                 verseTypeVolta.setChorus(Util.getByteValue(rs, "chorus"));
-                verseTypeVolta.setIndBis(Util.getByteValue(rs, "indBis"));
-                verseTypeVolta.setxRepeat(Util.getShortValue(rs, "xRepeat"));
                 verseTypeVolta.setTypeVoice(Util.getShortValue(rs, "typeVoice"));
 
                 lista.add(verseTypeVolta);

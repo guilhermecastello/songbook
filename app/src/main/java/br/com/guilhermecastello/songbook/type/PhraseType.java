@@ -14,9 +14,6 @@ public class PhraseType {
 
     private Byte indSing;
 
-    private Byte indBis;
-
-    private Short xRepeat;
 
     public PhraseType() {
 
@@ -26,11 +23,9 @@ public class PhraseType {
         this.phrase = phrase;
     }
 
-    public PhraseType(String phrase, Byte indSing, Byte indBis, Short xRepeat) {
+    public PhraseType(String phrase, Byte indSing) {
         this.phrase = phrase;
         this.indSing = indSing;
-        this.xRepeat = xRepeat;
-        this.indBis = indBis;
     }
 
     public Long getId() {
@@ -64,20 +59,5 @@ public class PhraseType {
     public void setIndSing(Byte indSing) {
         this.indSing = indSing;
     }
-
-    public Byte getIndBis() {
-        return indBis;
-    }
-
-    public void setIndBis(Byte indBis) {
-        this.indBis = indBis;
-    }
-
-    public Short getxRepeat() {
-        return xRepeat;
-    }
-
-    public void setxRepeat(Short xRepeat) {
-        this.xRepeat = xRepeat;
-    }
+    
 }

@@ -64,8 +64,6 @@ public class SongbookDB extends SQLiteOpenHelper {
         sql.append("       [id]         INTEGER PRIMARY KEY AUTOINCREMENT ");
         sql.append("      ,[idSong]     INTEGER ");
         sql.append("      ,[chorus]     INTEGER ");
-        sql.append("      ,[indBis]     INTEGER ");
-        sql.append("      ,[xRepeat]    INTEGER ");
         sql.append("      ,[typeVoice]  INTEGER ");
         sql.append(" );");
         db.execSQL(sql.toString());
@@ -80,8 +78,6 @@ public class SongbookDB extends SQLiteOpenHelper {
         sql.append("      ,[idVerse] INTEGER ");
         sql.append("      ,[phrase]  TEXT ");
         sql.append("      ,[indSing] INTEGER ");
-        sql.append("      ,[indBis] INTEGER ");
-        sql.append("      ,[xRepeat] INTEGER ");
         sql.append(" );");
         db.execSQL(sql.toString());
 
