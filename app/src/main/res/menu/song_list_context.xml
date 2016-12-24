@@ -6,6 +6,7 @@
 
     <item
         android:id="@+id/mnuRemoveFromPlaylist"
+        android:icon="@drawable/ic_add_song_playlist"
         android:title="@string/menu_song_remove_playlist"/>
 
     <item

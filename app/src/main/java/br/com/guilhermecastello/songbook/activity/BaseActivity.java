@@ -53,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         setTitle(R.string.app_name);
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_container);
         if (showNavigationMenu()) {
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

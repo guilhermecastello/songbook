@@ -184,10 +184,10 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             for (int i = 0; i < mSongs.size(); i++) {
-//                try {
-//                    Thread.sleep(200);
-//                } catch (InterruptedException e) {
-//                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                }
 
                 SongType song = mSongRN.getByNumber(mSongs.get(i));
                 if (song == null) {

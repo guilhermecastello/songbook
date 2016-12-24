@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/mnuRemovePlaylist"
+        android:icon="@drawable/ic_remove_song_playlist"
         android:title="@string/menu_playlist_remove"/>
 
     <item

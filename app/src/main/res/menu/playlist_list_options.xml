@@ -3,7 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mnuNewPlaylist"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/ic_add_song_playlist"
         android:title="@string/menu_playlist_new"
         app:showAsAction="ifRoom"/>
 

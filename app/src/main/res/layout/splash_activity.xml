@@ -1,25 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="#0099cc"
+             android:background="@color/colorPrimary"
              tools:context="br.com.guilhermecastello.songbook.activity.SplashActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo_songbook"
+        android:layout_marginBottom="47dp"
+        android:id="@+id/fullscreen_content"
         android:gravity="center"
         android:layout_centerVertical="true"
         android:keepScreenOn="true"
-        android:text="Songbook"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold"/>
+        android:layout_centerHorizontal="true"/>
+
 
     <ProgressBar
         android:id="@+id/pgrInicializa"
@@ -38,6 +40,7 @@
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/pgrInicializa"/>
+
 
 </RelativeLayout>
 
